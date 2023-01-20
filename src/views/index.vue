@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <div class="content__inner">main content</div>
+    <div class="content__inner">
+      <BaseButton>отправить письмо</BaseButton>
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,9 @@
     background-color: aquamarine;
   }
   &__inner {
-    @include container;
+    margin: 0 auto;
+    padding-top: 50px;
+    text-align: center;
   }
 }
 </style>

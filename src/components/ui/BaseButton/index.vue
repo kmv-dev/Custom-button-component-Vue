@@ -46,16 +46,16 @@ export default {
 
 <style lang="scss" scoped>
 .base-btn {
-  display: flex;
-  align-items: center;
-  padding: 4px 15px;
-  border-radius: 18px;
-  background: linear-gradient(115.67deg, #27b5fe 7.14%, #0078f6 170.42%);
-  color: white;
-  font-size: 14px;
-  box-shadow: 0 4px 5px 0 rgb(0 0 0 / 10%), 0 1px 10px 0 rgb(0 0 0 / 10%),
-    0 2px 4px -1px rgb(0 0 0 / 20%);
+  padding: 14px 46px;
+  border-top-left-radius: 34px;
+  border-bottom-left-radius: 38px;
+  border-top-right-radius: 38px;
+  border-bottom-right-radius: 34px;
+  background: #702c7e;
+  color: #ffffff;
+  font-size: 18px;
   transition: 0.2s ease-in-out;
+  text-transform: uppercase;
   &:hover {
     box-shadow: none;
   }
