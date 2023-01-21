@@ -14,9 +14,7 @@
       class="base-btn__icon-left"
       :class="beforeIcon"
     ></span>
-    <span v-if="!iconClass">{{
-      isTimerActive ? "повторное письмо" : btnName
-    }}</span>
+    <span v-if="!iconClass">{{ isTimerActive ? timerBtnName : btnName }}</span>
     <span
       v-if="iconClass && !isTimerActive"
       class="base-btn__icon"
@@ -38,6 +36,10 @@ export default {
     btnName: {
       type: String,
       default: "",
+    },
+    timerBtnName: {
+      type: String,
+      default: "повторное письмо",
     },
     type: {
       type: String,

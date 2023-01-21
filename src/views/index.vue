@@ -29,6 +29,7 @@
         :btnName="'кнопка с таймером'"
         :beforeIcon="'icon-vk'"
         :isTimer="true"
+        :timerBtnName="'повторить отправку'"
       ></BaseButton>
       <BaseButton
         class="content__btn"
