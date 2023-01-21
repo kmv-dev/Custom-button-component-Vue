@@ -9,12 +9,13 @@
         :btnName="'кнопка с таймером'"
         :isTimer="true"
         :amountTime="100"
+        @sendEmail="send"
       ></BaseButton>
       <BaseButton
         class="content__btn"
         :mode="'secondary'"
         :iconClass="'icon-quest'"
-        @eventClick="clickBtn"
+        @click="clickBtn"
       ></BaseButton>
       <BaseButton
         class="content__btn"
@@ -30,6 +31,7 @@
         :beforeIcon="'icon-vk'"
         :isTimer="true"
         :timerBtnName="'повторить отправку'"
+        @sendEmail="send"
       ></BaseButton>
       <BaseButton
         class="content__btn"
@@ -51,13 +53,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    clickBtn() {
-      console.log("кликнули");
-    },
-  },
+<script setup>
+const clickBtn = () => {
+  console.log("кликнули");
+};
+const send = () => {
+  console.log("отправили письмо");
 };
 </script>
 

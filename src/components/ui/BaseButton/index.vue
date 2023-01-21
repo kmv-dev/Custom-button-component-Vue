@@ -29,112 +29,103 @@
   </button>
 </template>
 
-<script>
-export default {
-  name: "BaseButton",
-  props: {
-    btnName: {
-      type: String,
-      default: "",
-    },
-    timerBtnName: {
-      type: String,
-      default: "повторное письмо",
-    },
-    type: {
-      type: String,
-      default: "",
-    },
-    mode: {
-      type: String,
-      default: "",
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    iconClass: {
-      type: String,
-      default: "",
-    },
-    link: {
-      type: String,
-      default: "",
-    },
-    isTimer: {
-      type: Boolean,
-      default: false,
-    },
-    beforeIcon: {
-      type: String,
-      default: "",
-    },
-    afterIcon: {
-      type: String,
-      default: "",
-    },
-    amountTime: {
-      type: Number,
-      default: 30,
-    },
+<script setup>
+import { ref, computed, onUnmounted, watch } from "vue";
+const emits = defineEmits(["sendEmail"]);
+const props = defineProps({
+  btnName: {
+    type: String,
+    default: "",
   },
-  data() {
-    return {
-      currentTime: 30,
-      timer: null,
-      isTimerActive: false,
-    };
+  timerBtnName: {
+    type: String,
+    default: "повторное письмо",
   },
-  unmounted() {
-    this.stopTimer();
+  type: {
+    type: String,
+    default: "",
   },
-  watch: {
-    currentTime(time) {
-      if (time === -1) {
-        this.stopTimer();
-        this.isTimerActive = false;
-      }
-    },
+  mode: {
+    type: String,
+    default: "",
   },
-  computed: {
-    btnClass() {
-      const { mode, disabled, iconClass } = this;
-      return [
-        {
-          "base-btn_disabled": disabled,
-          "base-btn_secondary": mode === "secondary",
-          "base-btn_warning": mode === "warning",
-          "base-btn_info": mode === "info",
-          "base-btn_danger": mode === "danger",
-          "base-btn_action": mode === "action",
-          "base-btn_icon": iconClass,
-        },
-      ];
-    },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
-  methods: {
-    click() {
-      this.$emit("eventClick");
-      if (this.isTimer) {
-        this.timerOn();
-      }
-    },
-    timerOn() {
-      if (this.isTimerActive === false) {
-        this.currentTime = this.amountTime;
-        this.isTimerActive = true;
-        this.startTimer();
-      }
-    },
-    startTimer() {
-      this.timer = setInterval(() => {
-        this.currentTime--;
-      }, 1000);
-    },
-    stopTimer() {
-      clearTimeout(this.timer);
-    },
+  iconClass: {
+    type: String,
+    default: "",
   },
+  link: {
+    type: String,
+    default: "",
+  },
+  isTimer: {
+    type: Boolean,
+    default: false,
+  },
+  beforeIcon: {
+    type: String,
+    default: "",
+  },
+  afterIcon: {
+    type: String,
+    default: "",
+  },
+  amountTime: {
+    type: Number,
+    default: 30,
+  },
+});
+const currentTime = ref(30);
+const timer = ref(null);
+const isTimerActive = ref(false);
+
+const btnClass = computed(() => {
+  return [
+    {
+      "base-btn_disabled": props.disabled,
+      "base-btn_secondary": props.mode === "secondary",
+      "base-btn_warning": props.mode === "warning",
+      "base-btn_info": props.mode === "info",
+      "base-btn_danger": props.mode === "danger",
+      "base-btn_action": props.mode === "action",
+      "base-btn_icon": props.iconClass,
+    },
+  ];
+});
+
+onUnmounted(() => {
+  stopTimer();
+});
+watch(currentTime, (time) => {
+  if (time === -1) {
+    stopTimer();
+    isTimerActive.value = false;
+  }
+});
+
+const click = () => {
+  emits("sendEmail");
+  if (props.isTimer) {
+    timerOn();
+  }
+};
+const timerOn = () => {
+  if (isTimerActive.value === false) {
+    currentTime.value = props.amountTime;
+    isTimerActive.value = true;
+    startTimer();
+  }
+};
+const startTimer = () => {
+  timer.value = setInterval(() => {
+    currentTime.value--;
+  }, 1000);
+};
+const stopTimer = () => {
+  clearTimeout(timer.value);
 };
 </script>
 
