@@ -23,7 +23,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-family: $Comfortaa;
+  font-family: $RussoOne;
   &__content {
     flex-grow: 1;
   }

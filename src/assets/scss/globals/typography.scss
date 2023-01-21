@@ -1,26 +1,8 @@
 @font-face {
-  font-family: "Comfortaa";
-  src: local('Comfortaa-Medium'), local('Comfortaa-Web'), local('ComfortaaWeb'),
-  url('./src/assets/fonts/Comfortaa-Medium.ttf');
+  font-family: "RussoOne";
+  src: local('RussoOne-Regular'), local('RussoOne-Web'), local('RussoOneWeb'),
+  url('./src/assets/fonts/RussoOne-Regular.ttf');
   font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Comfortaa";
-  src: local('Comfortaa-Regular'), local('Comfortaa-Web'), local('ComfortaaWeb'),
-  url('./src/assets/fonts/Comfortaa-Regular.ttf');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: local('Comfortaa-Light'), local('Comfortaa-Web'), local('ComfortaaWeb'),
-  url('./src/assets/fonts/Comfortaa-Light.ttf');
-  font-style: normal;
-  font-weight: 300;
+  font-weight: normal;
   font-display: swap;
 }
