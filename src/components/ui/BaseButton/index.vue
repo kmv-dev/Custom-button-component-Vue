@@ -2,15 +2,32 @@
   <a v-if="link !== ''" class="base-btn__link" :href="link">
     <slot />
   </a>
-  <button v-else class="base-btn" :class="btnClass" :type="type">
-    <slot name="icon-left"></slot>
-    <slot v-if="!isIcon" />
+  <button
+    v-else
+    class="base-btn"
+    :class="[btnClass, { 'base-btn_disabled': isTimerActive }]"
+    :type="type"
+    @click="click()"
+  >
     <span
-      v-if="isIcon && iconClass"
+      v-if="!isTimerActive && beforeIcon"
+      class="base-btn__icon-left"
+      :class="beforeIcon"
+    ></span>
+    <span v-if="!iconClass">{{
+      isTimerActive ? "повторное письмо" : btnName
+    }}</span>
+    <span
+      v-if="iconClass && !isTimerActive"
       class="base-btn__icon"
       :class="iconClass"
     ></span>
-    <slot name="icon-right"></slot>
+    <span
+      v-if="!isTimerActive && afterIcon"
+      class="base-btn__icon-right"
+      :class="afterIcon"
+    ></span>
+    <div v-if="isTimerActive" class="base-btn__timer">{{ currentTime }}</div>
   </button>
 </template>
 
@@ -18,6 +35,10 @@
 export default {
   name: "BaseButton",
   props: {
+    btnName: {
+      type: String,
+      default: "",
+    },
     type: {
       type: String,
       default: "",
@@ -34,22 +55,48 @@ export default {
       type: String,
       default: "",
     },
-    iconSide: {
-      type: String,
-      default: "",
-    },
-    isIcon: {
-      type: Boolean,
-      default: false,
-    },
     link: {
       type: String,
       default: "",
     },
+    isTimer: {
+      type: Boolean,
+      default: false,
+    },
+    beforeIcon: {
+      type: String,
+      default: "",
+    },
+    afterIcon: {
+      type: String,
+      default: "",
+    },
+    amountTime: {
+      type: Number,
+      default: 30,
+    },
+  },
+  data() {
+    return {
+      currentTime: 30,
+      timer: null,
+      isTimerActive: false,
+    };
+  },
+  unmounted() {
+    this.stopTimer();
+  },
+  watch: {
+    currentTime(time) {
+      if (time === -1) {
+        this.stopTimer();
+        this.isTimerActive = false;
+      }
+    },
   },
   computed: {
     btnClass() {
-      const { mode, disabled, isIcon } = this;
+      const { mode, disabled, iconClass } = this;
       return [
         {
           "base-btn_disabled": disabled,
@@ -58,9 +105,32 @@ export default {
           "base-btn_info": mode === "info",
           "base-btn_danger": mode === "danger",
           "base-btn_action": mode === "action",
-          "base-btn_icon": isIcon,
+          "base-btn_icon": iconClass,
         },
       ];
+    },
+  },
+  methods: {
+    click() {
+      this.$emit("eventClick");
+      if (this.isTimer) {
+        this.timerOn();
+      }
+    },
+    timerOn() {
+      if (this.isTimerActive === false) {
+        this.currentTime = this.amountTime;
+        this.isTimerActive = true;
+        this.startTimer();
+      }
+    },
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.currentTime--;
+      }, 1000);
+    },
+    stopTimer() {
+      clearTimeout(this.timer);
     },
   },
 };
@@ -78,6 +148,16 @@ export default {
   font-size: 16px;
   transition: 0.2s ease-in-out;
   text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  &__timer {
+    margin-top: 2px;
+    margin-left: 12px;
+    padding: 1px 8px;
+    background: #df3f3e;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 12px;
+  }
   &__link {
     color: #c4296c;
     transition: 0.2s ease-in-out;
@@ -93,7 +173,7 @@ export default {
   }
   &_disabled {
     pointer-events: none;
-    background: #efefef;
+    background: #efefef !important;
     color: #767679;
   }
   &_info {
@@ -114,6 +194,14 @@ export default {
     align-items: center;
     font-size: 24px;
     border-radius: 100%;
+  }
+  &__icon-left {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  &__icon-right {
+    font-size: 24px;
+    margin-left: 10px;
   }
 }
 </style>

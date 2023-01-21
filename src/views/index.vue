@@ -4,42 +4,60 @@
       <BaseButton class="content__btn" :link="'#'"
         >Напомнить PIN-код</BaseButton
       >
-      <BaseButton class="content__btn">отправить письмо</BaseButton>
+      <BaseButton
+        class="content__btn"
+        :btnName="'кнопка с таймером'"
+        :isTimer="true"
+        :amountTime="100"
+      ></BaseButton>
       <BaseButton
         class="content__btn"
         :mode="'secondary'"
         :iconClass="'icon-quest'"
-        :isIcon="true"
+        @eventClick="clickBtn"
       ></BaseButton>
       <BaseButton
         class="content__btn"
         :mode="'warning'"
-        :iconClass="'icon-arrow'"
-        ><template v-slot:icon-left
-          ><span class="icon__left icon-arrow"></span></template
-        ><template v-slot:icon-right
-          ><span class="icon__right icon-exit"></span></template
-        >отправить письмо</BaseButton
-      >
-      <BaseButton class="content__btn" :mode="'info'"
-        ><template v-slot:icon-left
-          ><span class="icon__left icon-arrow"></span></template
-        >отправить письмо</BaseButton
-      >
-      <BaseButton class="content__btn" :mode="'danger'"
-        ><template v-slot:icon-right
-          ><span class="icon__right icon-arrow-right"></span></template
-        >отправить письмо</BaseButton
-      >
-      <BaseButton class="content__btn" :mode="'action'"
-        >отправить письмо</BaseButton
-      >
-      <BaseButton class="content__btn" disabled>отправить письмо</BaseButton>
+        :beforeIcon="'icon-arrow'"
+        :afterIcon="'icon-exit'"
+        :btnName="'отправить письмо'"
+      ></BaseButton>
+      <BaseButton
+        class="content__btn"
+        :mode="'info'"
+        :btnName="'кнопка с таймером'"
+        :isTimer="true"
+      ></BaseButton>
+      <BaseButton
+        class="content__btn"
+        :mode="'danger'"
+        :btnName="'отправить письмо'"
+        :afterIcon="'icon-google'"
+      ></BaseButton>
+      <BaseButton
+        class="content__btn"
+        :mode="'action'"
+        :btnName="'отправить письмо'"
+      ></BaseButton>
+      <BaseButton
+        class="content__btn"
+        disabled
+        :btnName="'отправить письмо'"
+      ></BaseButton>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  methods: {
+    clickBtn() {
+      console.log("кликнули");
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 .content {
@@ -56,15 +74,9 @@
     text-align: center;
   }
   &__btn {
+    display: flex;
+    align-items: center;
     margin-bottom: 10px;
-  }
-}
-.icon {
-  &__left {
-    margin-right: 10px;
-  }
-  &__right {
-    margin-left: 10px;
   }
 }
 </style>
