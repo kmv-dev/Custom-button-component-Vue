@@ -27,6 +27,7 @@
         class="content__btn"
         :mode="'info'"
         :btnName="'кнопка с таймером'"
+        :beforeIcon="'icon-vk'"
         :isTimer="true"
       ></BaseButton>
       <BaseButton
@@ -61,9 +62,6 @@ export default {
 
 <style lang="scss">
 .content {
-  @include _1024 {
-    background-color: aquamarine;
-  }
   &__inner {
     display: grid;
     grid-template-columns: max-content;
@@ -72,9 +70,15 @@ export default {
     margin: 0 auto;
     padding-top: 50px;
     text-align: center;
+    @include _640 {
+      display: flex;
+      flex-direction: column;
+      padding: 50px 20px;
+    }
   }
   &__btn {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
   }

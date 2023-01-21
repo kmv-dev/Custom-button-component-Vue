@@ -149,6 +149,14 @@ export default {
   transition: 0.2s ease-in-out;
   text-transform: uppercase;
   -webkit-tap-highlight-color: transparent;
+  transition: 0.2s ease-in-out;
+  @include _640 {
+    padding: 12px 26px;
+    font-size: 14px;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
   &__timer {
     margin-top: 2px;
     margin-left: 12px;
@@ -194,6 +202,13 @@ export default {
     align-items: center;
     font-size: 24px;
     border-radius: 100%;
+    @include _640 {
+      max-width: 52px;
+      height: 52px;
+      font-size: 18px;
+      padding: 14px 20px;
+      margin: 0 auto 10px;
+    }
   }
   &__icon-left {
     font-size: 24px;
